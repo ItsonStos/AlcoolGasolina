@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'CampoTexto.dart';
+import 'package:flutter_alcool_gasolina_/Home.dart';
 
 void main() => runApp(const MaterialApp(
-      home: CampoTexto(),
+      debugShowCheckedModeBanner: false,
+      home: Home(),
     ));

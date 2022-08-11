@@ -1,8 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
-
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -15,6 +10,32 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   TextEditingController _controllerAlcool = TextEditingController();
   TextEditingController _controllerGasolina = TextEditingController();
+
+  String _textoResultado = '';
+
+  void _calcular() {
+    double precoAlcool = double.parse(_controllerAlcool.text);
+    double precoGasolina = double.parse(_controllerGasolina.text);
+
+    if (precoAlcool == null || precoGasolina == null) {
+      setState(() {
+        _textoResultado =
+            'Preço inválido, digite um valor maior que 0 e utilizando (.)';
+      });
+    } else {
+      if ((precoAlcool / precoGasolina) <= 0.7) {
+        setState(() {
+          _textoResultado = 'Abasteça com gasolina';
+        });
+      } else {
+        setState(() {
+          _textoResultado = 'Abasteça com álcool';
+        });
+      }
+    }
+  }
+
+  void _limparCampos() {}
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +78,7 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: EdgeInsets.only(top: 10),
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: _calcular,
                   child: Text(
                     'Calcular',
                     style: TextStyle(fontSize: 20),
@@ -72,7 +93,7 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: Text(
-                  "Resultado",
+                  _textoResultado,
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
               )
